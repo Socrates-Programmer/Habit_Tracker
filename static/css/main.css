@@ -122,3 +122,61 @@ padding: 1rem;
     }
 
 }
+
+.habit {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    font-size: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff2d8;
+    border: 3px solid black;
+    border-radius: 6px;
+}
+
+.ico_check {
+    width: 1em;
+
+}
+
+.font_track {
+    font-weight: bold;
+}
+
+.font_button {
+    font-size: 35px;
+}
+
+.habit__form {
+
+}
+
+.habit:not(.completed) {
+
+    padding: 0;
+}
+
+.habit:not(.completed):hover {
+
+    background-color: #e9cd87;
+}
+
+.habit__form {
+
+width: 100%;
+
+}
+
+.habit__button {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    font-size: inherit;
+    font-family: inherit;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    background-color: unset;
+}

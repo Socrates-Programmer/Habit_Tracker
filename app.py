@@ -1,8 +1,11 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template, request, redirect, url_for
 import datetime
+from collections import defaultdict
 
 app = Flask(__name__)
 habits = ["Test Habits", "Test 2 Habits"]
+completions = defaultdict(list)
+
 
 @app.context_processor
 def add_calc_date_range():
@@ -22,7 +25,11 @@ def index():
         selected_date = datetime.date.today()
 
     return render_template(
-        "index.html", habits = habits, title="Habit Tracker - Home", selected_date=selected_date
+        "index.html",
+        habits = habits,
+        title="Habit Tracker - Home",
+        selected_date=selected_date,
+        completions = completions[selected_date]
         )
 
 @app.route("/add", methods = ["GET", "POST"])
@@ -32,5 +39,17 @@ def add_habit():
         habits.append(request.form.get("habit"))
 
     return render_template(
-        "add_habit.html", title="Habit Tracker - Add Habit,", selected_date=datetime.date.today()
+        "add_habit.html",
+        title="Habit Tracker - Add Habit,",
+        selected_date=datetime.date.today()
         )
+
+
+@app.route('/complete', methods=["POST"])
+def complete():
+    date_string = request.form.get("date")
+    habit = request.form.get("habitName")
+    date = datetime.date.fromisoformat(date_string)
+    completions[date].append(habit)
+
+    return redirect(url_for("index", date=date_string))
